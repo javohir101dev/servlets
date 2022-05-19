@@ -4,17 +4,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Login extends HttpServlet {
 
-    List<User> userList = new ArrayList<>(Arrays.asList(
-            new User("user", "123"),
-            new User("java101dev", "123")
-
-    ));
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,8 +22,9 @@ public class Login extends HttpServlet {
         System.out.println(password);
 
         PrintWriter writer = resp.getWriter();
-        User user = new User("user", "123");
-        if (user.getUsername().equals(username) && user.getPassowrd().equals(password)){
+        User ourUserTakenFromDatabase = new User("ourUserTakenFromDatabase", "123");
+
+        if (ourUserTakenFromDatabase.getUsername().equals(username) && ourUserTakenFromDatabase.getPassowrd().equals(password)){
             Cookie cookie = new Cookie("authApp", username);
             cookie.setMaxAge(60 * 5);
             resp.addCookie(cookie);
